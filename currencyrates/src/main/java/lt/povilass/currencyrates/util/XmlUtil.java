@@ -28,4 +28,5 @@ public class XmlUtil {
 		FxRates fxRates = (FxRates) unmarshaller.unmarshal(ratesXml);
 		return fxRates;
 	}
+	
 }

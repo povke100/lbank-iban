@@ -7,6 +7,6 @@ import org.apache.http.NameValuePair;
 
 public interface Connection {
 	
-	public HttpResponse sendPost(String url, List<NameValuePair> payload);
+	public HttpResponse sendPost(List<NameValuePair> payload) throws Exception;
 
 }
