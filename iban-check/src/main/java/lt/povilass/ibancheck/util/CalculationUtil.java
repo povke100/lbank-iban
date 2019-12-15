@@ -17,7 +17,7 @@ public class CalculationUtil {
 		
 		// rearranged iban (first 4 characters are moved to end)
 		String rearr = iban.getBban() + iban.getCountryCode() + iban.getCheckDigits();
-		log.debug("getNumericalIBAN. numerical IBAN:{}", rearr);
+		log.debug("getNumericalIBAN. rearranged IBAN:{}", rearr);
 		
 		StringBuilder builder = new StringBuilder();
 		
