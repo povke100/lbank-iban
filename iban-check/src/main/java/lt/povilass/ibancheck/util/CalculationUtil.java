@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import lt.povilass.ibancheck.data.IBAN;
 
 @Slf4j
-public class Util {
+public class CalculationUtil {
 	
 	/**
 	 * Method returns numerical expression of given IBAN

@@ -18,8 +18,8 @@ public class ValidationUtil {
 		
 		log.debug("validateIBAN. IBAN: {}", iban);
 		
-		String numericalIBAN = Util.getNumericalIBAN(iban);
-		int rem = Util.modulo97(numericalIBAN);
+		String numericalIBAN = CalculationUtil.getNumericalIBAN(iban);
+		int rem = CalculationUtil.modulo97(numericalIBAN);
 		
 		log.debug("validateIBAN. Remainder: {}", rem);
 		if(rem == 1) {
@@ -41,8 +41,8 @@ public class ValidationUtil {
 		IBAN zerocheck = iban;
 		zerocheck.setCheckDigits("00");
 		
-		String numericalIBAN = Util.getNumericalIBAN(zerocheck);
-		int rem = Util.modulo97(numericalIBAN);
+		String numericalIBAN = CalculationUtil.getNumericalIBAN(zerocheck);
+		int rem = CalculationUtil.modulo97(numericalIBAN);
 		
 		int digits = 98 - rem;
 
