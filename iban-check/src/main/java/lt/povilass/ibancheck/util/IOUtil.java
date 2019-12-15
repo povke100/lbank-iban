@@ -13,7 +13,7 @@ import lt.povilass.ibancheck.data.IBAN;
 
 public class IOUtil {
 
-	public List<IBAN> readIBANS(String fileName) throws FileNotFoundException, IOException{
+	public static List<IBAN> readIBANS(String fileName) throws FileNotFoundException, IOException{
 		
 		List<IBAN> ibans = new ArrayList<>();
 		String str = "";
@@ -28,7 +28,7 @@ public class IOUtil {
 		return ibans;
 	}
 	
-	public void writeIBANS(String fileName, List<IBAN> ibans) throws IOException {
+	public static void writeIBANS(String fileName, List<IBAN> ibans) throws IOException {
 		
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName+".out"))){
 			for (IBAN iban : ibans) {
