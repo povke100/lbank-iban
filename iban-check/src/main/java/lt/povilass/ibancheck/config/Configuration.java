@@ -39,6 +39,10 @@ public class Configuration {
 		}
 	}
 	
+	public static String getMode() {
+		return properties.getProperty(ConstUtil.CFG_IBAN_MODE, "1");
+	}
+	
 	public static String [] getCountryCodes() {
 		return countryCodes;
 	}

@@ -2,6 +2,7 @@ package lt.povilass.ibancheck.util;
 
 public class ConstUtil {
 	
+	public static final String CFG_IBAN_MODE = "iban.check.mode";
 	public static final String CFG_COUNTRY_CODES = "iban.country.codes";
 	public static final String CFG_IBAN_LENGHT = "iban.lenght.";
 	public static final String CFG_IBAN_BBAN = "iban.bban.";
@@ -14,6 +15,8 @@ public class ConstUtil {
 	public static final String RGX_ALPHABETICAL = "^[A-Z]+$";
 	public static final String RGX_ALPHANUMERICAL = "^[A-Z0-9]+$";
 	public static final String RGX_BBAN_FORMAT = "(" + ALPHABETICAL + "|" + ALPHANUMERICAL + "|" + NUMERICAL + ")";
+	
+	
 	
 
 }
