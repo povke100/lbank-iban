@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import lt.povilass.ibancheck.util.ConstUtil;
 
 @Slf4j
-public class Config {
+public class Configuration {
 
 	private static Properties properties = new Properties();
 	
@@ -25,7 +25,7 @@ public class Config {
 				properties.load(new FileInputStream("./" + CONGIF_FILE_NAME));
 			} else {
 				log.debug("Loading properties from classpath config file...");
-				properties.load(Config.class.getClassLoader().getResourceAsStream(CONGIF_FILE_NAME));
+				properties.load(Configuration.class.getClassLoader().getResourceAsStream(CONGIF_FILE_NAME));
 			}
 			
 			String ccodes = properties.getProperty(ConstUtil.CFG_COUNTRY_CODES, ""); 
@@ -39,15 +39,15 @@ public class Config {
 		}
 	}
 	
-	public String [] getCountryCodes() {
+	public static String [] getCountryCodes() {
 		return countryCodes;
 	}
 	
-	public String getIBANLenghtByCountry(String countryCode) {
+	public static String getIBANLenghtByCountry(String countryCode) {
 		return properties.getProperty(ConstUtil.CFG_IBAN_LENGHT + countryCode, "");
 	}
 	
-	public String getBBANFormatByCountry(String countryCode) {
+	public static String getBBANFormatByCountry(String countryCode) {
 		return properties.getProperty(ConstUtil.CFG_IBAN_BBAN + countryCode, "");
 	}
 
