@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%msg%n" />
+		</Console>
+
+		<File name="File" fileName="./ibancheck.log">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+		</File>
+
+	</Appenders>
+	<Loggers>
+	
+		<Root level="error">
+			<AppenderRef ref="File" />
+		</Root>
+
+		<Logger name="lt.povilass.ibancheck" level="info">
+			<AppenderRef ref="File" />
+		</Logger>
+		
+		<Logger name="lt.povilass.ibancheck.console" level="info">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+	</Loggers>
+</Configuration>
