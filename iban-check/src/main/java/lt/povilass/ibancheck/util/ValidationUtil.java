@@ -9,13 +9,48 @@ import lt.povilass.ibancheck.data.IBAN;
 @Slf4j
 public class ValidationUtil {
 
+	/**
+	 * Check if IBAN is valid 
+	 * @param iban - IBAN object
+	 * @return true if remainder of (numericalIBAN mod 97) equals 1, false if otherwise.
+	 */
 	public static boolean validateIBAN(IBAN iban) {
-
+		
+		log.debug("validateIBAN. IBAN: {}", iban);
+		
+		String numericalIBAN = Util.getNumericalIBAN(iban);
+		int rem = Util.modulo97(numericalIBAN);
+		
+		log.debug("validateIBAN. Remainder: {}", rem);
+		if(rem == 1) {
+			return true;
+		}
+		
 		return false;
 	}
 
+	/**
+	 * Checks if generated check digits are equal with one in IBAN
+	 * @param iban - IBAN object
+	 * @return true if generated check digits are equal with given ones, false if otherwise
+	 */
 	public static boolean validateCheckDigits(IBAN iban) {
+		log.debug("validateCheckDigits. IBAN: {}", iban);
+		
+		//replacing check digits with 00 for generation of check digits
+		IBAN zerocheck = iban;
+		zerocheck.setCheckDigits("00");
+		
+		String numericalIBAN = Util.getNumericalIBAN(zerocheck);
+		int rem = Util.modulo97(numericalIBAN);
+		
+		int digits = 98 - rem;
 
+		log.debug("validateCheckDigits");
+		if(digits == Integer.valueOf(iban.getCheckDigits())) {
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -99,10 +134,10 @@ public class ValidationUtil {
 	}
 
 	/**
-	 * 
-	 * @param ccode
-	 * @return
-	 * @throws Exception
+	 * Checks if IBAN has a valid country code
+	 * @param ccode country code to check
+	 * @return true if given country code was found in configuration, false if otherwise.
+	 * @throws Exception if no countries are configured
 	 */
 	public static boolean validateCountryCode(String ccode) throws Exception {
 

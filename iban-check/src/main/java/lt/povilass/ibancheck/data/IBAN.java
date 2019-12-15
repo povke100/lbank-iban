@@ -34,5 +34,9 @@ public class IBAN {
 	public String getIBAN() {
 		return new StringBuilder().append(countryCode).append(checkDigits).append(bban).toString();
 	}
+	
+	public String getValidityString() {
+		return new StringBuilder().append(this.getIBAN()).append(";").append(isValid).toString();
+	}
 
 }
