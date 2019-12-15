@@ -45,6 +45,7 @@ public class Checker {
 					log.error("check. Invalid check mode is set in configuration!");
 					return ConstUtil.EXIT_CODE_ERROR;
 				}
+				console.info("Validation is done!");
 			}
 		} catch (Exception e) {
 			log.error("check. Exception occured.", e);
@@ -80,7 +81,7 @@ public class Checker {
 			}
 			
 			IOUtil.writeIBANS(fileName, ibans);
-			console.info("Validation is done!");
+			
 		}
 	}
 
