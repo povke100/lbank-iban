@@ -22,7 +22,7 @@ public class IBAN {
 		
 		if(iban.length() > 4) {
 			this.countryCode = iban.substring(0, 2);
-			this.countryCode = iban.substring(2, 4);
+			this.checkDigits = iban.substring(2, 4);
 			this.bban = iban.substring(4);
 		} else {
 			log.debug(" IBAN {} is too short, setting empty values.");
