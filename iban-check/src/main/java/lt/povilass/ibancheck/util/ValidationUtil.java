@@ -38,7 +38,7 @@ public class ValidationUtil {
 		log.debug("validateCheckDigits. IBAN: {}", iban);
 		
 		//replacing check digits with 00 for generation of check digits
-		IBAN zerocheck = iban;
+		IBAN zerocheck = new IBAN (iban.getIBAN());
 		zerocheck.setCheckDigits("00");
 		
 		String numericalIBAN = CalculationUtil.getNumericalIBAN(zerocheck);
@@ -57,7 +57,8 @@ public class ValidationUtil {
 	/**
 	 * Method checks if given BBAN format is correct for given country
 	 * 
-	 * @param iban 
+	 * @param bban - IBAN's BBAN part (IBAN without countrycode and check digits)
+	 * @param ccode - Country code
 	 * @return true if BBAN matched the configured format, returns false if
 	 *         otherwise.
 	 */
@@ -92,19 +93,19 @@ public class ValidationUtil {
 
 			switch (secFormat) {
 			case ConstUtil.ALPHABETICAL:
-				if (!bban.substring(beginIndex, secLenght).matches(ConstUtil.RGX_ALPHABETICAL)) {
+				if (!bban.substring(beginIndex, beginIndex+secLenght).matches(ConstUtil.RGX_ALPHABETICAL)) {
 					return false;
 				}
 				beginIndex += secLenght;
 				break;
 			case ConstUtil.ALPHANUMERICAL:
-				if (!bban.substring(beginIndex, secLenght).matches(ConstUtil.RGX_ALPHANUMERICAL)) {
+				if (!bban.substring(beginIndex, beginIndex+secLenght).matches(ConstUtil.RGX_ALPHANUMERICAL)) {
 					return false;
 				}
 				beginIndex += secLenght;
 				break;
 			case ConstUtil.NUMERICAL:
-				if (!bban.substring(beginIndex, secLenght).matches(ConstUtil.RGX_NUMERICAL)) {
+				if (!bban.substring(beginIndex, beginIndex+secLenght).matches(ConstUtil.RGX_NUMERICAL)) {
 					return false;
 				}
 				beginIndex += secLenght;
@@ -126,7 +127,7 @@ public class ValidationUtil {
 	public static boolean validateLength(String iban, String ccode) throws Exception {
 
 		String ibanLenght = Configuration.getIBANLenghtByCountry(ccode);
-		if (ibanLenght.length() == 0 || ibanLenght.matches(ConstUtil.RGX_NUMERICAL)) {
+		if (ibanLenght.length() == 0 || !ibanLenght.matches(ConstUtil.RGX_NUMERICAL)) {
 			log.error("validateLength. Missing or invalid iban lenght parameter for country: {}!", ccode);
 			throw new Exception("Missing or invalid iban lenght parameter for country: " + ccode);
 		}
