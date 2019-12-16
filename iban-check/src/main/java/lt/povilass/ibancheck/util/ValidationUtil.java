@@ -21,11 +21,11 @@ public class ValidationUtil {
 		String numericalIBAN = CalculationUtil.getNumericalIBAN(iban);
 		int rem = CalculationUtil.modulo97(numericalIBAN);
 		
-		log.debug("validateIBAN. Remainder: {}", rem);
 		if(rem == 1) {
+			log.debug("validateIBAN. Remainder for IBAN {} is 1", iban.getIBAN());
 			return true;
 		}
-		
+		log.debug("validateIBAN. Remainder for IBAN {} is {}", iban.getIBAN(), rem);
 		return false;
 	}
 
@@ -48,9 +48,11 @@ public class ValidationUtil {
 
 		log.debug("validateCheckDigits");
 		if(digits == Integer.valueOf(iban.getCheckDigits())) {
+			log.debug("validateCheckDigits. Check digits for IBAN: {} are equal.", iban.getIBAN());
 			return true;
 		}
 		
+		log.debug("validateCheckDigits. Check digits for IBAN: {} are NOT equal.", iban.getIBAN());
 		return false;
 	}
 
@@ -112,7 +114,7 @@ public class ValidationUtil {
 				break;
 			}
 		}
-
+		log.debug("validateBBAN. BBAN {} for ountry {} meets the format!", bban, ccode);
 		return true;
 	}
 	
@@ -131,7 +133,14 @@ public class ValidationUtil {
 			log.error("validateLength. Missing or invalid iban lenght parameter for country: {}!", ccode);
 			throw new Exception("Missing or invalid iban lenght parameter for country: " + ccode);
 		}
-		return iban.length() == Integer.valueOf(ibanLenght);
+		boolean valid = iban.length() == Integer.valueOf(ibanLenght);
+		if(valid) {
+			log.debug("validateLength. IBAN {} length for country {} is valid.", iban, ccode);
+		} else {
+			log.debug("validateLength. IBAN {} length for country {} is NOT valid.", iban, ccode);
+		}
+		
+		return valid;
 	}
 
 	/**
@@ -147,7 +156,14 @@ public class ValidationUtil {
 			throw new Exception("No countries were configured!");
 		}
 
-		return Arrays.stream(Configuration.getCountryCodes()).anyMatch(ccode::equals);
+		boolean valid = Arrays.stream(Configuration.getCountryCodes()).anyMatch(ccode::equals);
+		if (valid) {
+			log.debug("validateCountryCode. Match is found for country code: {}", ccode);
+		} else {
+			log.debug("validateCountryCode. No match is found for country code: {}", ccode);
+		}
+		
+		return valid;
 	}
 
 }
