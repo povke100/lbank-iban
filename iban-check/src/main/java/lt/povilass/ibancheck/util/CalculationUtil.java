@@ -40,7 +40,7 @@ public class CalculationUtil {
 	
 	/**
 	 * Calculates remainder of mod 97 (base 10) of given IBAN 
-	 * @param numericalIBAN numerical representation of IBAN
+	 * @param numericalIBAN numerical representation of IBAN (at least 10 digits long)
 	 * @return remainder of numericalIBAN or -1 if numericalIBAN is shorter than 10 digits.
 	 */
 	public static int modulo97(String numericalIBAN) {
@@ -71,7 +71,6 @@ public class CalculationUtil {
 			} else {
 				part = new StringBuilder().append(remainder).append(iban.substring(0, iban.length())).toString();
 				iban = iban.substring(iban.length());
-				
 			}
 			
 			remainder = Integer.valueOf(part) % 97;	
